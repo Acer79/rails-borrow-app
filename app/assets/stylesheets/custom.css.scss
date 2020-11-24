@@ -1,0 +1,26 @@
+@import 'bootstrap/dist/css/bootstrap';
+
+.background {
+    background-image: url('abstract1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+}
+
+.form-padding {
+    padding-top: 100px;
+}
+
+.user-name {
+    margin-top: 3.5%;
+    padding-right: 5px;
+}
+
+.user-color {
+    color: black;
+}
+
+.logout-button {
+    margin-right: 8px;
+}
