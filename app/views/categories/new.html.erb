@@ -1,0 +1,21 @@
+<h1 style="padding-top: 50px; padding-bottom: 50px">Add New Category</h1>
+<%= render 'shared/errors', obj: @category %>
+
+<h3>Present Categories</h3>
+
+<ul class="list-group list-group-horizontal">
+  <% @allCat.each do |cat| %>
+    <li class="list-group-item"><%= cat.name %></li>
+  <% end %>
+</ul>
+
+<%= form_with(model: @category, local: true) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :name, 'Add Category' %>
+    <%= f.text_field :name, autofocus: true, autocomplete: 'Category name', class: 'form-control', placeholder: "Enter New Category" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+
+<% end %>

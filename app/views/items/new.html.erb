@@ -1,23 +1,4 @@
 <h1 style="padding-top: 50px; padding-bottom: 50px">Add Items Page</h1>
 <%= render 'shared/errors', obj: @item %>
 
-<%= form_with(model: @item, local: true) do |f| %>
-  <div class="form-group">
-    <%= f.label :item_name %>
-    <%= f.text_field :name, autofocus: true, autocomplete: 'Item name', class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :category %>
-     <%= f.collection_select(:category_id, Category.all, :id, :name,
-            { prompt: "Make your selection from the list below"}, { multiple: false, size: 1, class: "custom-select shadow rounded" }) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description, autofocus: true, autocomplete: 'Description', class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlFile1">Attach Photo</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div>
-  <%= f.submit class: "btn btn-primary" %>
-<% end %>
+<%= render 'form' %>

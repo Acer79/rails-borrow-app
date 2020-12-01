@@ -1,8 +1,6 @@
 class User < ApplicationRecord
-  has_many :user_items
-  has_many :items, through: :user_items
-  has_many :friendships
-  has_many :friends, through: :friendships
+  has_many :buyer_orders, class_name: "Order", foreign_key: :buyer, inverse_of: :buyer, dependent: :destroy
+  has_many :seller_orders, class_name: "Order", foreign_key: :seller, inverse_of: :seller, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,28 +12,5 @@ class User < ApplicationRecord
   def full_name
     return "#{first_name} #{last_name}" if first_name || last_name
     "Anonymous"
-  end
-
-  def self.search(param)
-    param.strip!
-    to_send_back = (first_name_matches(param) + last_name_matches(param) + email_matches(param)).uniq
-    return nil unless to_send_back
-    to_send_back
-  end
-
-  def self.first_name_matches(param)
-    matches("first_name", param)
-  end
-
-  def self.last_name_matches(param)
-    matches("last_name", param)
-  end
-
-  def self.email_matches(param)
-    matches("email", param)
-  end
-
-  def self.matches(field_name, param)
-    where("#{field_name} like ?", "%#{param}%")
   end
 end

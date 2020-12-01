@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_182745) do
+ActiveRecord::Schema.define(version: 2020_11_30_155520) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-  end
-
-  create_table "friendships", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "friend_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["friend_id"], name: "index_friendships_on_friend_id"
-    t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -31,15 +22,27 @@ ActiveRecord::Schema.define(version: 2020_11_24_182745) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "category_id"
+    t.integer "buyer_id"
   end
 
-  create_table "user_items", force: :cascade do |t|
-    t.integer "user_id", null: false
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
     t.integer "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_id"], name: "index_user_items_on_item_id"
-    t.index ["user_id"], name: "index_user_items_on_user_id"
+    t.index ["item_id"], name: "index_order_items_on_item_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.time "order_date"
+    t.string "status"
+    t.integer "buyer_id", null: false
+    t.integer "seller_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
+    t.index ["seller_id"], name: "index_orders_on_seller_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,8 +59,8 @@ ActiveRecord::Schema.define(version: 2020_11_24_182745) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "friendships", "users"
-  add_foreign_key "friendships", "users", column: "friend_id"
-  add_foreign_key "user_items", "items"
-  add_foreign_key "user_items", "users"
+  add_foreign_key "order_items", "items"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users", column: "buyer_id"
+  add_foreign_key "orders", "users", column: "seller_id"
 end
