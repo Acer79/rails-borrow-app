@@ -19,8 +19,12 @@
             { prompt: "Make your selection from the list below"}, { multiple: false, size: 1, class: "custom-select shadow rounded" }) %>
   </div>
   <div class="form-group">
-    <label for="exampleFormControlFile1">Attach Photo</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+  <% if @item.image.attached? %>
+    <%= image_tag(@item.image, style: "width: 200px; display: block") %>
+  <% end %>
+  <br>
+    <%= f.label :image %><br>
+    <%= f.file_field :image, class: "form-control" %>
   </div>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>

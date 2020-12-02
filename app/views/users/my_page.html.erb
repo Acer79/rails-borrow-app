@@ -18,18 +18,16 @@
         <tbody>
             <% @seller_items.each_with_index do |si, index| %>
                 <tr>
-                <th scope="row"><%= "#{index+1}" %></th>
-                <td><%= si[:item].created_at.strftime("%a, %d %b %Y") %></td>
-                <td><%= si[:item].name %></td>
-                <td><%= si[:item].description %></td>
+                <th class="align-middle" scope="row"><%= "#{index+1}" %></th>
+                <td class="align-middle"><%= si[:item].created_at.strftime("%a, %d %b %Y") %></td>
+                <td class="align-middle"><%= si[:item].name %></td>
+                <td class="align-middle"><%= si[:item].description %></td>
                 <% if si[:item].buyer_id %>
-                    <td><%= @users.find(@buyer[index]).email %></td>
-                <% else %>
-                    <td>-</td>
+                    <td class="align-middle"><%= @users.find(@buyer[index]).email %></td>
                 <% end %>
-                <td>-</td>
-                <td><%= link_to 'Edit', edit_item_path(si[:item]), class: "btn btn-sm btn-warning" %></td>
-                <td><%= link_to 'Delete', item_path(si[:item]), class: "btn btn-sm btn-danger",method: :delete, data: {confirm: "Are you sure?"} %></td>
+                <td class="align-middle"><%= image_tag(si[:item].image, style: "width: 100px") if si[:item].image.attached? %></td>
+                <td class="align-middle"><%= link_to 'Edit', edit_item_path(si[:item]), class: "btn btn-sm btn-warning" %></td>
+                <td class="align-middle"><%= link_to 'Delete', item_path(si[:item]), class: "btn btn-sm btn-danger",method: :delete, data: {confirm: "Are you sure?"} %></td>
                 </tr>
             <% end %>
         </tbody>
@@ -54,12 +52,12 @@
         <tbody>
             <% @buyer_items.each_with_index do |bi, index| %>
                 <tr>
-                <th scope="row"><%= "#{index+1}" %></th>
-                <td><%= bi[:item].created_at.strftime("%a, %d %b %Y") %></td>
-                <td><%= bi[:item].name %></td>
-                <td><%= bi[:item].description %></td>
-                <td><%= @users.find(@seller[index]).email %></td>
-                <td>-</td>
+                <th class="align-middle" scope="row"><%= "#{index+1}" %></th>
+                <td class="align-middle"><%= bi[:item].created_at.strftime("%a, %d %b %Y") %></td>
+                <td class="align-middle"><%= bi[:item].name %></td>
+                <td class="align-middle"><%= bi[:item].description %></td>
+                <td class="align-middle"><%= @users.find(@seller[index]).email %></td>
+                <td class="align-middle"><%= image_tag(bi[:item].image, style: "width: 100px") if bi[:item].image.attached? %></td>
                 </tr>
             <% end %>
         </tbody>

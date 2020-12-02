@@ -26,8 +26,11 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
+    order_item = OrderItem.where(item_id: @item.id).first
+    # order = Order.where(id: order_item.order_id).update(buyer_id: @item.buyer_id)
+    # render json: order
     if @item.update(article_params)
-      order = Order.update(buyer_id: @item.buyer_id)
+      order = Order.where(id: order_item.order_id).update(buyer_id: @item.buyer_id)
       flash[:notice] = "Item was updated successfully."
       redirect_to my_page_path
     else
@@ -52,6 +55,6 @@ class ItemsController < ApplicationController
   private
 
   def article_params
-    params.require(:item).permit(:name, :description, :category_id, :buyer_id)
+    params.require(:item).permit(:name, :description, :category_id, :buyer_id, :image)
   end
 end
